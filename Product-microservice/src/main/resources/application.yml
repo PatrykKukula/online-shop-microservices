@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: "product"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/online-shop
+    driver-class-name: org.postgresql.Driver
+    username: "postgres"
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  config:
+    import: optional:configserver:http://localhost:8888
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: "http://localhost:8070/eureka/"
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: "product"
+    description: "Product microservice for Online Dart Shop"
+
+logging:
+  level:
+    com:
+      spring:
+        security: DEBUG

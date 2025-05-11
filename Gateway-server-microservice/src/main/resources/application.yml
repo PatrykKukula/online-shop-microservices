@@ -1,0 +1,47 @@
+server:
+  port: 8072
+
+spring:
+  application:
+    name: "gatewayserver"
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: "http://localhost:8070/eureka/"
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: "Gateway Server"
+    description: "Edge Server microservice for Online Dart Shop"
+
+
+logging:
+  level:
+    pl:
+      patrykkukula:
+        Gateway.server: DEBUG
